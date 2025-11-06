@@ -21,7 +21,11 @@ export const metadata: Metadata = {
   description:
     "Construction métallique de haute précision. Structures en acier, façades métalliques, hangars industriels et montage avec expertise suisse.",
   generator: "v0.app",
+  icons: {
+    icon: "/logoen.png", 
+  },
 }
+
 
 export default function RootLayout({
   children,
