@@ -7,17 +7,17 @@ import { SparkParticles } from "./spark-particles"
 
 const slides = [
   {
-    image: "/industrial-welder-with-bright-sparks-flying-in-dar.jpg",
+    image: "/home1.jpg",
     title: "CONSTRUCTION MÉTALLIQUE SUR-MESURE",
     subtitle: "Précision. Solidité. Excellence.",
   },
   {
-    image: "/heavy-crane-lifting-massive-steel-beams-in-industr.jpg",
+    image: "/home2.jpg",
     title: "MONTAGE & DÉMONTAGE INDUSTRIEL",
     subtitle: "Rapidité & sécurité garanties",
   },
   {
-    image: "/close-up-molten-metal-welding-with-orange-glow-and.jpg",
+    image: "/home3.jpg",
     title: "FAÇADES & STRUCTURES EN ACIER",
     subtitle: "Design moderne & qualité durable",
   },

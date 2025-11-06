@@ -6,19 +6,19 @@ const projects = [
   {
     title: "HANGAR INDUSTRIEL",
     location: "Genève",
-    image: "/large-industrial-steel-warehouse-construction-nigh.jpg",
+    image: "/hangar.jpg",
     category: "Structures",
   },
   {
     title: "FAÇADE MÉTALLIQUE",
     location: "Lausanne",
-    image: "/modern-steel-building-facade-architectural-metal-p.jpg",
+    image: "/metal-fasade.jpg",
     category: "Façades",
   },
   {
     title: "CHARPENTE ACIER",
     location: "Zurich",
-    image: "/steel-beam-framework-construction-site-crane-indus.jpg",
+    image: "/steel1.jpg",
     category: "Charpentes",
   },
   {
@@ -30,13 +30,13 @@ const projects = [
   {
     title: "PASSERELLE ACIER",
     location: "Fribourg",
-    image: "/steel-bridge-walkway-industrial-construction-metal.jpg",
+    image: "/2.jpg",
     category: "Ouvrages",
   },
   {
     title: "HALL INDUSTRIEL",
     location: "Neuchâtel",
-    image: "/massive-industrial-hall-steel-construction-factory.jpg",
+    image: "/3.jpg",
     category: "Structures",
   },
 ]

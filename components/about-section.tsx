@@ -13,7 +13,7 @@ export function AboutSection() {
             <div className="relative  mb-8">
               <div className="steel-texture relative aspect-video border-2 border-white/10 p-2">
                 <img
-                  src="/industrial-workers-welding-steel-in-factory-team-c.jpg"
+                  src="/about.jpg"
                   alt="Notre équipe"
                   className="w-full h-full object-cover"
                 />
