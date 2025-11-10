@@ -29,9 +29,9 @@ export default function Footer() {
             Contact
           </h4>
           <ul className="space-y-3 text-sm text-[#9ca1a8]">
-            <li className="flex items-center gap-3"><MapPin size={16}/> Route Industrielle XX, Suisse</li>
-            <li className="flex items-center gap-3"><Phone size={16}/> +41 XX XXX XX XX</li>
-            <li className="flex items-center gap-3"><Mail size={16}/> contact@montxpert.ch</li>
+            <li className="flex items-center gap-3"><MapPin size={16}/> Muttacherstrasse 12, 1712 Tafers</li>
+            <li className="flex items-center gap-3"><Phone size={16}/> +41 76 7004586</li>
+            <li className="flex items-center gap-3"><Mail size={16}/> Info@en-montxpert.com</li>
           </ul>
         </div>
 
@@ -56,7 +56,6 @@ export default function Footer() {
           <div className="flex gap-5">
             <a className="text-[#d4d7dd] hover:text-[#ff7a2e] transition"><Instagram size={22}/></a>
             <a className="text-[#d4d7dd] hover:text-[#ff7a2e] transition"><Facebook size={22}/></a>
-            <a className="text-[#d4d7dd] hover:text-[#ff7a2e] transition">TT</a>
           </div>
         </div>
 
