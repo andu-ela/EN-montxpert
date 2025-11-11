@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { SteelButton } from "./steel-button"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { SteelButton } from "./steel-button";
 
 const slides = [
   {
@@ -20,38 +21,41 @@ const slides = [
     title: "FAÇADES & STRUCTURES EN ACIER",
     subtitle: "Design moderne & qualité durable",
   },
-]
+];
 
 export function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const router = useRouter(); // ✅ për navigim
 
   // Auto-slide every 6s
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 6000)
-    return () => clearInterval(interval)
-  }, [])
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Mouse parallax effect
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
         y: (e.clientY / window.innerHeight - 0.5) * 20,
-      })
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length)
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+  // Smooth scroll for in-page sections
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <section className="relative h-[100svh] w-full overflow-hidden">
-      {/* Cinematic Slider */}
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -67,74 +71,60 @@ export function HeroSection() {
           >
             <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
           </div>
-
-          {/* Overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/85" />
         </div>
       ))}
 
-      {/* CONTENT */}
+      {/* Content */}
       <div className="relative z-10 h-full flex items-center justify-center px-6 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1
-            className="
-            font-[family-name:var(--font-orbitron)]
-            font-black
-            text-4xl sm:text-5xl md:text-6xl lg:text-7xl
-            tracking-tight mb-4 text-center text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]
-          "
-          >
+          <h1 className="font-[family-name:var(--font-orbitron)] font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight mb-4 text-center text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
             {slides[currentSlide].title}
           </h1>
 
-          <p
-            className="
-            font-[family-name:var(--font-orbitron)]
-            font-bold
-            text-xl sm:text-2xl md:text-3xl lg:text-4xl
-            tracking-tight text-[#ff7828] mb-6
-          "
-          >
+          <p className="font-[family-name:var(--font-orbitron)] font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight text-[#ff7828] mb-6">
             {slides[currentSlide].subtitle}
           </p>
 
-          <p
-            className="
-            text-base sm:text-lg md:text-xl text-[#b8bbc1]
-            max-w-2xl mx-auto mb-8 leading-relaxed
-          "
-          >
+          <p className="text-base sm:text-lg md:text-xl text-[#b8bbc1] max-w-2xl mx-auto mb-8 leading-relaxed">
             Experts en construction métallique, montage industriel et structures en acier.
             Qualité suisse, délais respectés et solutions durables pour vos projets professionnels.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
-            <SteelButton variant="primary" size="lg" className="text-[#ff7722] hover:text-[#ff8c33]">
+            {/* Scrolls to devis section */}
+            <SteelButton
+              variant="primary"
+              size="lg"
+              onClick={() => scrollToSection("devis")}
+              className="text-[#ff7722] hover:text-[#ff8c33]"
+            >
               DEMANDER UN DEVIS
             </SteelButton>
 
-            <SteelButton variant="secondary" size="lg">
+            {/* Navigates to /contact page */}
+            <SteelButton
+              variant="secondary"
+              size="lg"
+              onClick={() => router.push("/contact")}
+            >
               CONTACT
             </SteelButton>
           </div>
         </div>
       </div>
 
-      {/* Navigation Arrows – visible on all devices */}
+      {/* Arrows */}
       <button
-        onClick={prevSlide}
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 
-        bg-black/40 hover:bg-black/60 backdrop-blur-sm p-3 sm:p-4 rounded-full 
-        transition-all duration-300"
+        onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
+        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 backdrop-blur-sm p-3 sm:p-4 rounded-full transition-all duration-300"
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
 
       <button
-        onClick={nextSlide}
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 
-        bg-black/40 hover:bg-black/60 backdrop-blur-sm p-3 sm:p-4 rounded-full 
-        transition-all duration-300"
+        onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
+        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 backdrop-blur-sm p-3 sm:p-4 rounded-full transition-all duration-300"
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
@@ -152,5 +142,5 @@ export function HeroSection() {
         ))}
       </div>
     </section>
-  )
+  );
 }

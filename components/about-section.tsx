@@ -73,28 +73,31 @@ export function AboutSection() {
               <div className="absolute -bottom-2 -right-2 w-12 h-12 border-b-4 border-r-4 border-[#ff7828]" />
             </div>
 
-            {/* 3 Boxes */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[
-                { title: "EXPERTISE", text: "Construction Métallique" },
-                { title: "FIABILITÉ", text: "Montage Industriel Sécurisé" },
-                { title: "QUALITÉ", text: "Standards Suisses" },
-              ].map((box, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.3 }}
-                  transition={{ delay: i * 0.15, duration: 0.6 }}
-                  className="steel-texture border border-white/10 p-4 lg:p-6 text-center"
-                >
-                  <div className="font-[family-name:var(--font-orbitron)] font-black text-2xl text-[#ff7828] mb-2">
-                    {box.title}
-                  </div>
-                  <div className="text-sm text-[#8a8d93] uppercase tracking-wide">{box.text}</div>
-                </motion.div>
-              ))}
-            </div>
+     {/* 3 Boxes */}
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-8">
+  {[
+    { title: "EXPERTISE", text: "METAL CONSTRUCTION" },
+    { title: "RELIABILITY", text: "SECURE INDUSTRIAL ASSEMBLY" },
+    { title: "QUALITY", text: "SWISS STANDARDS" },
+  ].map((box, i) => (
+    <motion.div
+      key={i}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ delay: i * 0.15, duration: 0.6 }}
+      className="border border-white/10 bg-[#0f1115]/60 p-5 sm:p-6 text-center flex flex-col items-center justify-center min-h-[130px] sm:min-h-[150px] hover:border-[#ff7828]/50 transition-all duration-300"
+    >
+      <div className="font-[family-name:var(--font-orbitron)] font-black text-xl sm:text-2xl text-[#ff7828] mb-1">
+        {box.title}
+      </div>
+      <div className="text-xs sm:text-sm text-[#b8bbc1] uppercase tracking-wide leading-tight max-w-[140px]">
+        {box.text}
+      </div>
+    </motion.div>
+  ))}
+</div>
+
           </motion.div>
 
           {/* RIGHT SIDE — Text */}

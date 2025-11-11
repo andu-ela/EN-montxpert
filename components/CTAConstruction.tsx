@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
@@ -16,6 +17,14 @@ export default function CTAConstruction() {
   const rotate = useTransform(scrollYProgress, [0, 1], ["0deg", "6deg"]);
   const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
   const glowOpacity = useTransform(scrollYProgress, [0, 1], [0.6, 0.9]);
+
+  // 📍 Scroll to specific section
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section
@@ -53,12 +62,21 @@ export default function CTAConstruction() {
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
-            <a className="px-8 py-3 bg-[#ff7a1a] text-black font-semibold uppercase tracking-wide text-sm rounded-md hover:bg-[#ffa556] transition">
+            {/* 🔸 Scroll to section */}
+            <button
+              onClick={() => scrollToSection("devis")}
+              className="px-8 py-3 bg-[#ff7a1a] text-black font-semibold uppercase tracking-wide text-sm rounded-md hover:bg-[#ffa556] transition"
+            >
               Demander un devis
-            </a>
-            <a className="px-8 py-3 border border-white/40 text-white font-semibold uppercase tracking-wide text-sm rounded-md hover:bg-white hover:text-black transition">
+            </button>
+
+            {/* 🔸 Go to Contact page */}
+            <Link
+              href="/contact"
+              className="px-8 py-3 border border-white/40 text-white font-semibold uppercase tracking-wide text-sm rounded-md hover:bg-white hover:text-black transition text-center"
+            >
               Contact direct
-            </a>
+            </Link>
           </div>
 
           <p className="text-gray-500 text-sm mt-6 tracking-wide">

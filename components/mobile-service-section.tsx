@@ -1,120 +1,106 @@
 "use client";
-import { Truck, HardHat, Shield } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { Wrench, HardHat, Shield } from "lucide-react";
 
-export default function MobileServiceSection() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  // Subtle parallax movement for the glowing layer
-  const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
-
+export default function SiteWorkSection() {
   const features = [
     {
-      icon: Truck,
-      title: "Mobilité Totale",
-      text: "Unité mobile équipée pour interventions partout en Suisse.",
+      icon: Wrench,
+      title: "Intervention Rapide",
+      text: "Nos équipes se déplacent sur site pour garantir une mise en œuvre efficace et une résolution rapide des besoins techniques.",
     },
     {
       icon: HardHat,
       title: "Équipes Certifiées",
-      text: "Soudeurs, monteurs et techniciens qualifiés et expérimentés.",
+      text: "Techniciens et monteurs qualifiés, formés selon les normes suisses et européennes les plus strictes.",
     },
     {
       icon: Shield,
-      title: "Sécurité Prioritaire",
-      text: "Procédures strictes, conformité et normes suisses.",
+      title: "Qualité & Sécurité",
+      text: "Toutes nos interventions respectent des protocoles rigoureux de sécurité, de conformité et de qualité durable.",
     },
   ];
 
   return (
     <section
-      ref={ref}
-      id="brand-mobile"
-      className="relative w-full py-48 bg-black overflow-hidden"
+      id="travaux-site"
+      className="relative bg-gradient-to-br from-[#090b0d] via-[#101214] to-[#0a0b0d] py-28 md:py-32 overflow-hidden"
     >
-      {/* 🎥 Background Video */}
-      <div className="absolute inset-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-45"
-        >
-          <source src="/moving.mp4" type="video/mp4" />
-        </video>
-
-        {/* Parallax glow overlay */}
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-20 px-6">
+        {/* 🧱 TITULLI & TEKSTI */}
         <motion.div
-          style={{ y, opacity }}
-          className="absolute inset-0 bg-[radial-gradient(circle_at_center,#ff782820_0%,transparent_70%)] blur-3xl pointer-events-none"
-        />
-
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-      </div>
-
-      {/* ⚙️ Content */}
-      <div className="relative z-10 max-w-6xl mx-auto text-center px-6">
-        {/* Title Block */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-14"
-        >
-          <h2
-            className="font-[family-name:var(--font-orbitron)] font-black text-5xl md:text-7xl text-[#d4d7dd] uppercase tracking-tight text-shadow-heavy text-balance"
-          >
-            INTERVENTION SUR SITE
-          </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-[#ff7828] to-transparent mx-auto ember-glow mt-4" />
-        </motion.div>
-
-        {/* Subtitle paragraph */}
-        <motion.p
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mt-5 leading-relaxed"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 md:gap-52"
         >
-          Déploiement rapide d’équipes spécialisées pour montage métallique,
-          maintenance industrielle et installation de structures sur chantier.
-        </motion.p>
+          {/* TITULLI MAJTAS */}
+          <h2 className="font-[family-name:var(--font-orbitron)] font-black text-5xl md:text-6xl lg:text-7xl text-[#e1e4ea] uppercase tracking-tight leading-tight max-w-xl mb-8">
+            Travaux <span className="text-[#ff7828]">Sur Site</span>
+          </h2>
 
-        {/* Feature Cards */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((f, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.3 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.2 + i * 0.2,
-                ease: "easeOut",
-              }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 20px rgba(255, 120, 40, 0.3)",
-              }}
-              className="flex flex-col items-center text-gray-200 p-6 border border-white/10 rounded-xl bg-white/5 backdrop-blur-sm transition-all duration-500"
-            >
-              <f.icon size={42} className="mb-4 text-[#ff7828]" />
-              <h4 className="font-bold font-[family-name:var(--font-orbitron)] text-lg mb-2">
-                {f.title}
-              </h4>
-              <p className="text-sm text-gray-400 leading-relaxed">{f.text}</p>
-            </motion.div>
-          ))}
+          {/* TEKSTI DJATHTAS */}
+          <p className="text-gray-300 text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl mt-2 md:mt-0">
+            Nous intervenons directement sur vos chantiers pour le montage,<br/> la maintenance et 
+            l’assemblage industriel, avec rapidité, précision et respect absolu des normes. 
+            Nos équipes assurent un travail fiable, durable et parfaitement adapté à vos besoins.
+          </p>
+        </motion.div>
+
+        {/* 🧩 FEATURES & VIDEO */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-16 lg:gap-20">
+          {/* FEATURES */}
+          <div>
+            {features.map((f, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: i * 0.1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                className="flex items-start gap-5 mb-8 group"
+              >
+                <div className="relative flex items-center justify-center w-14 h-14 rounded-xl bg-[#0f1114] border border-[#ff7828]/40 text-[#ff7828] group-hover:scale-110 transition-transform duration-300 shadow-[0_0_25px_rgba(255,120,40,0.2)]">
+                  <f.icon size={30} />
+                </div>
+                <div>
+                  <h4 className="text-xl font-semibold text-white font-[family-name:var(--font-orbitron)] mb-1">
+                    {f.title}
+                  </h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">{f.text}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* 🎥 VIDEO */}
+          <div className="relative rounded-3xl overflow-hidden border border-[#1f2429] shadow-[0_0_40px_rgba(0,0,0,0.6)] hover:shadow-[0_0_55px_rgba(255,120,40,0.2)] transition-all duration-700 mt-8">
+            <div className="aspect-[16/10] w-full">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover scale-[1.45] md:scale-[1.25] xl:scale-[1.15]"
+              >
+                <source src="/moving.mp4" type="video/mp4" />
+              </video>
+            </div>
+
+            {/* Overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/50" />
+
+            {/* Caption */}
+            <div className="absolute bottom-6 left-6 md:left-10 text-white">
+              <p className="text-sm uppercase tracking-wider text-[#ff7828] mb-1">
+                Intervention sur site
+              </p>
+              <h5 className="text-2xl font-bold font-[family-name:var(--font-orbitron)] leading-snug">
+                Opérations industrielles
+              </h5>
+            </div>
+          </div>
         </div>
       </div>
     </section>

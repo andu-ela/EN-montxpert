@@ -72,17 +72,26 @@ export default function CtaSteelClean() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="flex flex-col sm:flex-row gap-5 justify-center items-center"
         >
-          <SteelButton
-            variant="primary"
-            size="lg"
-            className="text-[#ff7722] hover:text-[#ff8c33]"
-          >
-            CONTACTEZ-NOUS
-          </SteelButton>
+{/* CONTACT button → goes to contact page */}
+<SteelButton
+  variant="primary"
+  size="lg"
+  onClick={() => (window.location.href = "/contact")}
+  className="text-[#ff7722] hover:text-[#ff8c33]"
+>
+  CONTACTEZ-NOUS
+</SteelButton>
 
-          <SteelButton variant="secondary" size="lg">
-            EN SAVOIR PLUS
-          </SteelButton>
+{/* EN SAVOIR PLUS → scrolls to About section */}
+<SteelButton
+  variant="secondary"
+  size="lg"
+  onClick={() => (window.location.href = "/about")}
+
+>
+  EN SAVOIR PLUS
+</SteelButton>
+
         </motion.div>
       </div>
 

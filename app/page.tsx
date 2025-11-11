@@ -18,7 +18,10 @@ export default function Home() {
       <Navigation />
       <HeroSection />
       <WhyChooseUs />
-      <CTASection />
+ <section id="devis">
+  <CTASection />
+</section>
+
       <ProjectsGallery />
       <AboutSection />
       <MobileServiceSection />
