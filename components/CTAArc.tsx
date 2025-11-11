@@ -1,38 +1,93 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { SteelButton } from "./steel-button";
 
 export default function CtaSteelClean() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
+
   return (
-    <section className="relative py-32 overflow-hidden bg-[linear-gradient(140deg,#e3e6ea,#c3c8cf,#9da2a8)] text-center">
+    <section
+      ref={ref}
+      className="relative py-24 sm:py-32 bg-gradient-to-b from-[#0a0c10] via-[#0f1115] to-[#0a0c10] overflow-hidden text-center"
+    >
+      {/* Top steel separator */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#8a8d93] to-transparent" />
 
-      <div className="relative z-10 max-w-2xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold leading-tight text-[#1d1f21] tracking-wide">
-          Transformons Votre{" "}
-          <span className="text-orange-600 relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[3px] after:bg-orange-500 after:animate-pulse">
-            Projet Métallique
-          </span>
-        </h2>
+      {/* Parallax steel glow background */}
+      <motion.div
+        style={{ y, opacity }}
+        className="absolute inset-0 bg-[radial-gradient(circle_at_center,#ff782820_0%,transparent_70%)] blur-3xl opacity-30 pointer-events-none"
+      />
 
-        <p className="mt-5 text-lg text-[#2b2f33] opacity-90 font-light tracking-wide">
-          Du concept à la réalisation — précision, innovation et excellence industrielle.
-        </p>
-
-        {/* CTA button */}
-        <button className="group relative mt-10 px-14 py-4 font-semibold uppercase tracking-wide 
-          bg-gradient-to-b from-[#363636] to-black text-white border border-gray-700 
-          hover:border-orange-500 transition-all overflow-hidden shadow-[0_0_20px_rgba(255,115,0,0.15)]
-          hover:shadow-[0_0_35px_rgba(255,115,0,0.45)]"
+      <div className="relative max-w-7xl mx-auto px-6 z-10 flex flex-col items-center justify-center text-center">
+        {/* Title with scroll animation */}
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="font-[family-name:var(--font-orbitron)] font-black text-5xl md:text-7xl text-[#d4d7dd] mb-6 tracking-tight text-balance"
         >
-          <span className="relative z-10 flex items-center gap-2 justify-center">
-            Contactez-nous
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </span>
+          PRÊTS À <span className="text-[#ff7828]">COLLABORER</span> ?
+        </motion.h2>
 
-          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent 
-            translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
-        </button>
+        {/* Gradient underline */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="origin-center w-32 h-1 bg-gradient-to-r from-transparent via-[#ff7828] to-transparent mx-auto ember-glow mb-10"
+        />
+
+        {/* Paragraph with smooth fade-up */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-[#8a8d93] text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12"
+        >
+          Discutons de la manière dont{" "}
+          <span className="text-[#ff7828] font-semibold">EN MONTXPERT</span> peut
+          transformer vos idées en solutions concrètes, alliant{" "}
+          <span className="text-white">précision</span>,{" "}
+          <span className="text-white">sécurité</span> et{" "}
+          <span className="text-white">performance durable</span>.
+        </motion.p>
+
+        {/* Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex flex-col sm:flex-row gap-5 justify-center items-center"
+        >
+          <SteelButton
+            variant="primary"
+            size="lg"
+            className="text-[#ff7722] hover:text-[#ff8c33]"
+          >
+            CONTACTEZ-NOUS
+          </SteelButton>
+
+          <SteelButton variant="secondary" size="lg">
+            EN SAVOIR PLUS
+          </SteelButton>
+        </motion.div>
       </div>
+
+      {/* Bottom steel separator */}
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#8a8d93] to-transparent" />
     </section>
   );
 }

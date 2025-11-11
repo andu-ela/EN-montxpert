@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { SteelButton } from "./steel-button"
-import { SparkParticles } from "./spark-particles"
 
 const slides = [
   {
@@ -27,6 +26,7 @@ export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
+  // Auto-slide every 6s
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
@@ -34,6 +34,7 @@ export function HeroSection() {
     return () => clearInterval(interval)
   }, [])
 
+  // Mouse parallax effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
@@ -67,40 +68,42 @@ export function HeroSection() {
             <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
           </div>
 
-          {/* Overlay */}
+          {/* Overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/85" />
         </div>
       ))}
 
-      <SparkParticles />
-
       {/* CONTENT */}
       <div className="relative z-10 h-full flex items-center justify-center px-6 text-center">
         <div className="max-w-4xl mx-auto">
-
-          <h1 className="
-            metal-text spark-reflect
+          <h1
+            className="
             font-[family-name:var(--font-orbitron)]
             font-black
             text-4xl sm:text-5xl md:text-6xl lg:text-7xl
-            tracking-tight mb-4 text-center
-          ">
+            tracking-tight mb-4 text-center text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]
+          "
+          >
             {slides[currentSlide].title}
           </h1>
 
-          <p className="
+          <p
+            className="
             font-[family-name:var(--font-orbitron)]
             font-bold
             text-xl sm:text-2xl md:text-3xl lg:text-4xl
             tracking-tight text-[#ff7828] mb-6
-          ">
+          "
+          >
             {slides[currentSlide].subtitle}
           </p>
 
-          <p className="
+          <p
+            className="
             text-base sm:text-lg md:text-xl text-[#b8bbc1]
             max-w-2xl mx-auto mb-8 leading-relaxed
-          ">
+          "
+          >
             Experts en construction métallique, montage industriel et structures en acier.
             Qualité suisse, délais respectés et solutions durables pour vos projets professionnels.
           </p>
@@ -117,13 +120,23 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Arrows */}
-      <button onClick={prevSlide} className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 chrome-button p-3 sm:p-4">
-        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#d4d7dd]" />
+      {/* Navigation Arrows – visible on all devices */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 
+        bg-black/40 hover:bg-black/60 backdrop-blur-sm p-3 sm:p-4 rounded-full 
+        transition-all duration-300"
+      >
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
 
-      <button onClick={nextSlide} className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 chrome-button p-3 sm:p-4">
-        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#d4d7dd]" />
+      <button
+        onClick={nextSlide}
+        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 
+        bg-black/40 hover:bg-black/60 backdrop-blur-sm p-3 sm:p-4 rounded-full 
+        transition-all duration-300"
+      >
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
 
       {/* Indicators */}
@@ -132,8 +145,8 @@ export function HeroSection() {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-[3px] sm:h-1 w-8 sm:w-12 transition-all ${
-              index === currentSlide ? "bg-[#ff7828] ember-glow" : "bg-white/20 hover:bg-white/40"
+            className={`h-[3px] sm:h-1 w-8 sm:w-12 transition-all rounded-full ${
+              index === currentSlide ? "bg-[#ff7828]" : "bg-white/20 hover:bg-white/40"
             }`}
           />
         ))}

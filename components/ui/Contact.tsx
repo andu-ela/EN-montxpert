@@ -1,28 +1,24 @@
 "use client";
 
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const glowOpacity = useTransform(scrollYProgress, [0, 1], [0.2, 0.5]);
 
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [submitStatus, setSubmitStatus] = useState("idle");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitStatus("loading");
 
@@ -43,32 +39,56 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0c10] text-white overflow-hidden">
-      {/* HERO SECTION */}
-      <section className="relative py-24 sm:py-32 px-6 sm:px-10 lg:px-24 overflow-hidden text-left">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-16 left-6 sm:top-20 sm:left-10 w-40 sm:w-72 h-40 sm:h-72 border border-orange-500/30 rotate-45 animate-spin-slow"></div>
-          <div className="absolute bottom-10 right-6 sm:bottom-20 sm:right-10 w-60 sm:w-96 h-60 sm:h-96 border border-orange-500/20 rotate-12 animate-pulse-slow"></div>
-        </div>
+    <div
+      ref={ref}
+      className="min-h-screen bg-[#0a0c10] text-white overflow-hidden relative text-center"
+    >
+      {/* 🌌 Floating Glow */}
+      <motion.div
+        style={{ y: glowY, opacity: glowOpacity }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] bg-gradient-to-br from-[#ff7828]/30 to-[#ff5014]/10 blur-[150px] rounded-full pointer-events-none"
+      />
 
-        <div className="relative z-10 max-w-5xl">
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight mb-6 leading-tight">
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
-              CONTACTEZ-NOUS
-            </span>
+      {/* === HERO SECTION === */}
+      <section className="relative flex flex-col items-center justify-center min-h-[80vh] sm:h-screen px-4 sm:px-6 text-center overflow-hidden">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] border border-[#ff7828]/25 rounded-full"
+        />
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
+          className="absolute w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] border border-[#ff7828]/10 rounded-full blur-[1px]"
+        />
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 40 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="relative z-10 max-w-3xl mx-auto"
+        >
+          <h1 className="font-[family-name:var(--font-orbitron)] text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
+            CONTACTEZ-NOUS
           </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-transparent mb-6 sm:mb-8"></div>
-          <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-3xl leading-relaxed">
-            Nous serions ravis de discuter de votre projet. Contactez-nous par email, téléphone ou directement via le formulaire ci-dessous.
+          <div className="w-28 sm:w-32 h-[2px] bg-gradient-to-r from-transparent via-[#ff7828] to-transparent mx-auto mb-8" />
+          <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-md sm:max-w-2xl mx-auto">
+            Nous serions ravis de discuter de votre projet. Contactez-nous par email, téléphone
+            ou directement via le formulaire ci-dessous.
           </p>
-        </div>
+        </motion.div>
       </section>
 
-      {/* CONTACT CARDS */}
-      <section className="px-6 sm:px-10 lg:px-24 py-16 sm:py-20 text-left">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-20">
-          {[
+      {/* === CONTACT CARDS === */}
+      <section className="relative py-20 sm:py-28 bg-gradient-to-b from-[#0a0c10] via-[#0f1115] to-[#0a0c10] text-center px-4 sm:px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 70 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10"
+        >
+          {[ 
             {
               icon: Mail,
               title: "EMAIL",
@@ -81,7 +101,7 @@ export default function Contact() {
               title: "TÉLÉPHONE",
               value: "+41 76 700 45 86",
               action: "tel:+41767004586",
-              linkText: "Appeler",
+              linkText: "Appeler maintenant",
             },
             {
               icon: MapPin,
@@ -91,38 +111,50 @@ export default function Contact() {
                 "https://www.google.com/maps?q=Muttacherstrasse+12,+1712+Tafers,+Switzerland",
               linkText: "Voir sur la carte",
             },
-          ].map((contact, idx) => (
-            <a
-              key={idx}
+          ].map((contact, i) => (
+            <motion.a
+              key={i}
               href={contact.action}
               target="_blank"
-              className="steel-texture group relative p-6 sm:p-8 border border-white/10 rounded-lg hover:border-[#ff7828]/50 transition-all duration-500 hover:scale-105"
+              initial={{ opacity: 0, scale: 0.9, y: 40 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.2 }}
+              viewport={{ once: false }}
+              className="group relative p-6 sm:p-8 border border-[#1f2429] bg-[#101215]/80 backdrop-blur-sm rounded-xl shadow-[0_0_18px_rgba(0,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,120,40,0.25)] hover:border-[#ff7828]/40 hover:-translate-y-2 transition-all duration-500"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#ff7828]/0 to-[#ff7828]/0 group-hover:from-[#ff7828]/5 group-hover:to-[#ff5014]/5 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#ff7828]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-xl" />
               <div className="relative z-10">
-                <div className="mb-6 inline-block p-4 bg-gradient-to-br from-[#2a2d35] to-[#1a1d24] border border-white/10 group-hover:border-[#ff7828]/50 rounded-lg">
-                  <contact.icon className="w-8 h-8 text-[#ff7828]" strokeWidth={1.5} />
+                <div className="mb-6 flex justify-center">
+                  <contact.icon className="w-9 h-9 sm:w-10 sm:h-10 text-[#ff7828]" strokeWidth={1.5} />
                 </div>
                 <h3 className="font-[family-name:var(--font-orbitron)] font-bold text-lg sm:text-xl text-[#d4d7dd] mb-3 tracking-wide">
                   {contact.title}
                 </h3>
-                <p className="text-[#8a8d93] text-sm sm:text-base leading-relaxed mb-4">{contact.value}</p>
-                <span className="text-[#ff7828] font-semibold group-hover:text-[#ff9b52] transition-colors text-sm sm:text-base">
+                <p className="text-[#8a8d93] mb-3 sm:mb-4 text-sm sm:text-base">{contact.value}</p>
+                <span className="text-[#ff7828] font-semibold group-hover:text-[#ff9b52] transition">
                   {contact.linkText}
                 </span>
               </div>
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#ff7828]/50 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#ff7828]/50 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
+      </section>
 
-        {/* FORM + MAP */}
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
+      {/* === FORM & MAP === */}
+      <section className="relative py-20 sm:py-28 bg-gradient-to-b from-[#0a0c10] via-[#0f1115] to-[#0a0c10] text-center px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16 items-start">
           {/* FORM */}
-          <form onSubmit={handleSubmit} className="space-y-6 order-2 md:order-1">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">ENVOYEZ UN MESSAGE</h2>
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            viewport={{ once: false }}
+            className="space-y-5 text-left order-2 md:order-1"
+          >
+            <h2 className="font-[family-name:var(--font-orbitron)] text-2xl sm:text-3xl font-bold mb-6 text-[#e1e4ea] text-center">
+              ENVOYEZ UN MESSAGE
+            </h2>
 
             {[ 
               { label: "NOM COMPLET", name: "name", type: "text", placeholder: "Jean Dupont" },
@@ -130,55 +162,62 @@ export default function Contact() {
               { label: "TÉLÉPHONE", name: "phone", type: "tel", placeholder: "+41 76 700 45 86" },
             ].map((field) => (
               <div key={field.name}>
-                <label className="block text-sm font-bold mb-2">{field.label}</label>
+                <label className="block text-sm font-bold mb-2 text-center">{field.label}</label>
                 <input
                   type={field.type}
                   name={field.name}
-                  value={(formData as any)[field.name]}
+                  value={formData[field.name]}
                   onChange={handleChange}
                   required={field.name !== "phone"}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-orange-500 focus:outline-none transition-colors"
                   placeholder={field.placeholder}
+                  className="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-[#ff7828] focus:outline-none transition-colors text-sm sm:text-base"
                 />
               </div>
             ))}
 
             <div>
-              <label className="block text-sm font-bold mb-2">MESSAGE</label>
+              <label className="block text-sm font-bold mb-2 text-center">MESSAGE</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-orange-500 focus:outline-none transition-colors resize-none"
                 placeholder="Écrivez votre message ici..."
-              ></textarea>
+                className="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-[#ff7828] focus:outline-none transition-colors resize-none text-sm sm:text-base"
+              />
             </div>
 
-            <button
+            <motion.button
               type="submit"
               disabled={submitStatus === "loading"}
+              whileTap={{ scale: 0.97 }}
               className={`w-full py-3 rounded-lg font-bold text-lg transition-all duration-300 ${
                 submitStatus === "success"
                   ? "bg-green-600 text-white"
                   : submitStatus === "loading"
                   ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-                  : "bg-gradient-to-r from-orange-600 to-orange-500 text-white hover:scale-105 hover:shadow-2xl"
+                  : "bg-gradient-to-r from-[#ff7828] to-[#ff5014] text-white hover:scale-105 shadow-[0_0_25px_rgba(255,120,40,0.25)]"
               }`}
             >
               {submitStatus === "loading" && "ENVOI..."}
               {submitStatus === "success" && "MESSAGE ENVOYÉ !"}
               {submitStatus === "idle" && "ENVOYER LE MESSAGE"}
-            </button>
-          </form>
+            </motion.button>
+          </motion.form>
 
           {/* MAP */}
-          <div className="relative order-1 md:order-2 rounded-lg overflow-hidden border border-[#ff7828]/30 shadow-2xl bg-gray-950">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            viewport={{ once: false }}
+            className="relative order-1 md:order-2 rounded-lg overflow-hidden border border-[#ff7828]/30 shadow-2xl bg-gray-950 mt-6 md:mt-10"
+          >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2754.929885425078!2d7.212201976432214!3d46.816548245929874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478ff4ce8fd30241%3A0xe4d0b4e64d2ab7f3!2sMuttacherstrasse%2012%2C%201712%20Tafers%2C%20Switzerland!5e0!3m2!1sen!2sch!4v1731260000000!5m2!1sen!2sch"
               width="100%"
-              height="450"
+              height="400"
               loading="lazy"
               style={{
                 border: 0,
@@ -188,72 +227,22 @@ export default function Contact() {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
 
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0a0c10]/80 via-[#0a0c10]/60 to-transparent"></div>
-
-            <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-start px-6 sm:px-10 lg:px-16 text-left">
-              <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-3 sm:mb-4 text-white">
-                Notre Adresse
-              </h3>
-              <p className="text-sm sm:text-lg lg:text-xl text-gray-300 mb-3 sm:mb-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0c10]/90 via-[#0a0c10]/70 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-3 sm:px-6">
+              <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white">Notre Adresse</h3>
+              <p className="text-gray-300 mb-5 text-sm sm:text-lg max-w-xs sm:max-w-sm">
                 Muttacherstrasse 12, 1712 Tafers, Suisse
               </p>
               <a
                 href="https://www.google.com/maps?q=Muttacherstrasse+12,+1712+Tafers,+Switzerland"
                 target="_blank"
-                className="bg-gradient-to-r from-orange-600 to-orange-500 text-white px-5 py-2 sm:px-6 sm:py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+                className="bg-gradient-to-r from-[#ff7828] to-[#ff5014] text-white px-5 py-2 sm:px-6 sm:py-3 rounded-lg font-semibold hover:scale-105 transition-all duration-300 text-sm sm:text-base"
               >
                 Ouvrir sur Google Maps
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
-
-      {/* CTA SECTION — Metallic Style */}
-      <section className="relative py-24 sm:py-32 bg-gradient-to-b from-[#0a0c10] via-[#0f1115] to-[#0a0c10] overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#8a8d93]/50 to-transparent" />
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-1/2 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-[#ff7828]/20 rounded-full blur-3xl animate-pulse-slow"></div>
-          <div className="absolute bottom-0 right-1/4 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-[#ff5014]/10 rounded-full blur-3xl animate-float-slow"></div>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-6 text-left z-10">
-          <h2 className="font-[family-name:var(--font-orbitron)] font-black text-4xl sm:text-6xl md:text-7xl text-[#d4d7dd] mb-6">
-            PRÊTS À <span className="text-[#ff7828]">COLLABORER</span> ?
-          </h2>
-          <div className="w-40 h-[2px] bg-gradient-to-r from-transparent via-[#ff7828] to-transparent mb-10" />
-          <p className="text-[#8a8d93] text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl">
-            Discutons de la manière dont{" "}
-            <span className="text-[#ff7828] font-semibold">EN MONTXPERT</span>{" "}
-            peut transformer vos idées en solutions concrètes, alliant{" "}
-            <span className="text-white">précision</span>,{" "}
-            <span className="text-white">sécurité</span> et{" "}
-            <span className="text-white">performance durable</span>.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-5 mt-10">
-            <a
-              href="/contact"
-              className="relative group px-8 py-3 sm:px-10 sm:py-4 font-[family-name:var(--font-orbitron)] text-base sm:text-lg text-[#d4d7dd] border border-white/10 bg-gradient-to-br from-[#2a2d35] to-[#1a1d24] rounded-lg overflow-hidden transition-all duration-500 hover:scale-105 hover:border-[#ff7828]/60"
-            >
-              <span className="relative z-10 group-hover:text-white">
-                CONTACTEZ-NOUS
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#ff7828]/0 via-[#ff7828]/10 to-[#ff5014]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </a>
-
-            <a
-              href="/about"
-              className="relative group px-8 py-3 sm:px-10 sm:py-4 font-[family-name:var(--font-orbitron)] text-base sm:text-lg text-[#ff7828] border border-[#ff7828]/50 bg-transparent rounded-lg overflow-hidden transition-all duration-500 hover:scale-105 hover:bg-[#ff7828]/10"
-            >
-              <span className="relative z-10 group-hover:text-white">
-                EN SAVOIR PLUS
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#8a8d93]/50 to-transparent" />
       </section>
     </div>
   );
