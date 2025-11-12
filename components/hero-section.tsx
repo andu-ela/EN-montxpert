@@ -115,19 +115,43 @@ export function HeroSection() {
       </div>
 
       {/* Arrows */}
-      <button
-        onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 backdrop-blur-sm p-3 sm:p-4 rounded-full transition-all duration-300"
-      >
-        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-      </button>
+  {/* Arrows */}
+{/* Desktop arrows only */}
+<div className="hidden md:block">
+  <button
+    onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
+    className="absolute left-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 backdrop-blur-sm p-4 rounded-full transition-all duration-300"
+  >
+    <ChevronLeft className="w-6 h-6 text-white" />
+  </button>
 
-      <button
-        onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 backdrop-blur-sm p-3 sm:p-4 rounded-full transition-all duration-300"
-      >
-        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-      </button>
+  <button
+    onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
+    className="absolute right-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/60 backdrop-blur-sm p-4 rounded-full transition-all duration-300"
+  >
+    <ChevronRight className="w-6 h-6 text-white" />
+  </button>
+</div>
+
+{/* Mobile arrows centered under content */}
+<div className="md:hidden absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-6">
+  <button
+    onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
+    className="bg-black/50 hover:bg-black/70 backdrop-blur-sm p-3 rounded-full transition-all duration-300"
+  >
+    <ChevronLeft className="w-5 h-5 text-white" />
+  </button>
+
+  <button
+    onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
+    className="bg-black/50 hover:bg-black/70 backdrop-blur-sm p-3 rounded-full transition-all duration-300"
+  >
+    <ChevronRight className="w-5 h-5 text-white" />
+  </button>
+</div>
+
+
+    
 
       {/* Indicators */}
       <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 sm:gap-3">
