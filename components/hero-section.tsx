@@ -87,8 +87,10 @@ export function HeroSection() {
           </p>
 
           <p className="text-base sm:text-lg md:text-xl text-[#b8bbc1] max-w-2xl mx-auto mb-8 leading-relaxed">
-            Experts en construction métallique, montage industriel et structures en acier.
-            Qualité suisse, délais respectés et solutions durables pour vos projets professionnels.
+       MontXpert EN est une entreprise suisse spécialisée en construction métallique sur-mesure,
+structures en acier, façades industrielles et montage professionnel. Expertise, qualité
+suisse et solutions durables pour vos projets.
+
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
