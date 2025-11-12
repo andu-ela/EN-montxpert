@@ -112,7 +112,7 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.4 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="font-[family-name:var(--font-orbitron)] font-black text-5xl md:text-7xl text-[#d4d7dd] mb-8 text-shadow-heavy"
+className="font-[family-name:var(--font-orbitron)] font-black text-5xl md:text-7xl text-[#d4d7dd] mb-8 text-shadow-heavy text-center md:text-left"
             >
               À PROPOS
             </motion.h2>
