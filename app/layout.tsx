@@ -21,10 +21,22 @@ export const metadata: Metadata = {
   description:
     "Construction métallique de haute précision. Structures en acier, façades métalliques, hangars industriels et montage avec expertise suisse.",
   generator: "v0.app",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  alternates: {
+    canonical: "https://www.montxpert-en.com",
+  },
   icons: {
-    icon: "/logoen.png", 
+    icon: "/logoen.png",
   },
 }
+
 
 
 export default function RootLayout({
